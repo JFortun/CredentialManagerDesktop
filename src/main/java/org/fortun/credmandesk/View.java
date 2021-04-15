@@ -10,6 +10,6 @@ public class View {
     static JLabel lblLoginPasswordUser = new JLabel("Password");
     static JTextField txtLoginNameUser = new JTextField();
     static JPasswordField txtLoginPasswordUser = new JPasswordField();
-    static JButton btnLoginAccess = new JButton("Access");
     static JButton btnLoginSignIn = new JButton("Sign In");
+    static JButton btnLoginSignUp = new JButton("Sign Up");
 }

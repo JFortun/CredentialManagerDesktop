@@ -18,24 +18,24 @@ public class Login extends JFrame implements ActionListener {
         View.lblLoginPasswordUser.setBounds(50, 80, 75, 15);
         View.txtLoginNameUser.setBounds(150, 25, 175, 25);
         View.txtLoginPasswordUser.setBounds(150, 75, 175, 25);
-        View.btnLoginAccess.setBounds(50, 130, 95, 30);
-        View.btnLoginSignIn.setBounds(235, 130, 95, 30);
-        View.btnLoginAccess.addActionListener(this);
+        View.btnLoginSignIn.setBounds(50, 130, 95, 30);
+        View.btnLoginSignUp.setBounds(235, 130, 95, 30);
         View.btnLoginSignIn.addActionListener(this);
+        View.btnLoginSignUp.addActionListener(this);
         View.login.add(View.lblLoginNameUser);
         View.login.add(View.lblLoginPasswordUser);
         View.login.add(View.txtLoginNameUser);
         View.login.add(View.txtLoginPasswordUser);
-        View.login.add(View.btnLoginAccess);
         View.login.add(View.btnLoginSignIn);
+        View.login.add(View.btnLoginSignUp);
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource().equals(View.btnLoginAccess)) {
-            System.out.println("Access");
-        } else if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
+        if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
             System.out.println("Sign In");
+        } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
+            new SignIn();
         }
     }
 }
