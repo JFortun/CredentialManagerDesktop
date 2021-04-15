@@ -35,7 +35,7 @@ public class Login extends JFrame implements ActionListener {
         if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
             System.out.println("Sign In");
         } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
-            new SignIn();
+            new SignUp();
         }
     }
 }
