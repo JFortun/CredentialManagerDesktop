@@ -12,4 +12,7 @@ public class View {
     static JPasswordField txtLoginPasswordUser = new JPasswordField();
     static JButton btnLoginSignIn = new JButton("Sign In");
     static JButton btnLoginSignUp = new JButton("Sign Up");
+
+    // Sign In
+    static JFrame signUp = new JFrame("Sign Up");
 }
