@@ -33,7 +33,7 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
-            System.out.println("Sign In");
+            new CredentialManager();
         } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
             new SignUp();
         }

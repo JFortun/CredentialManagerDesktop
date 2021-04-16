@@ -23,4 +23,7 @@ public class View {
     static JPasswordField txtSignUpPasswordUserAgain = new JPasswordField();
     static JButton btnSignUp = new JButton("Sign Up");
     static JButton btnSignUpCancel = new JButton("Cancel");
+
+    // Login
+    static JFrame credentialManager = new JFrame("Credential Manager");
 }
