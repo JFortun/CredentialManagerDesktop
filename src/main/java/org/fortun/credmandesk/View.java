@@ -26,4 +26,6 @@ public class View {
 
     // Login
     static JFrame credentialManager = new JFrame("Credential Manager");
+    static JButton btnCredentialManagerManageUser = new JButton("Manage User");
+    static JButton btnCredentialManagerSignOut = new JButton("Sign Out");
 }
