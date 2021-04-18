@@ -33,9 +33,11 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
-            new CredentialManager();
+            View.credentialManager.setVisible(true);
+            View.login.setVisible(false);
         } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
-            new SignUp();
+            View.signUp.setVisible(true);
+            View.login.setVisible(false);
         }
     }
 }

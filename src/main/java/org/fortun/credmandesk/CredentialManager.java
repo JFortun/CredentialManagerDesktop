@@ -28,8 +28,8 @@ public class CredentialManager extends JFrame implements ActionListener {
             System.out.println("Manage User");
         } else if (actionEvent.getSource().equals(View.btnCredentialManagerSignOut)) {
             System.out.println("Sign Out");
-            View.btnCredentialManagerSignOut.removeActionListener(this);
-            View.credentialManager.dispose();
+            View.credentialManager.setVisible(false);
+            View.login.setVisible(true);
         }
     }
 }
