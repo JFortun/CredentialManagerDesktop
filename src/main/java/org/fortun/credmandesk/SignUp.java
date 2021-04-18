@@ -39,7 +39,6 @@ public class SignUp extends JFrame implements ActionListener {
         if (actionEvent.getSource().equals(View.btnSignUp)) {
             System.out.println("Sign Up");
         } else if (actionEvent.getSource().equals(View.btnSignUpCancel)) {
-            System.out.println("Cancel");
             View.signUp.setVisible(false);
             View.login.setVisible(true);
         }

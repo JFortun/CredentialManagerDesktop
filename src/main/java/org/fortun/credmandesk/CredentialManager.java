@@ -26,8 +26,8 @@ public class CredentialManager extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnCredentialManagerManageUser)) {
             System.out.println("Manage User");
+            View.manageUser.setVisible(true);
         } else if (actionEvent.getSource().equals(View.btnCredentialManagerSignOut)) {
-            System.out.println("Sign Out");
             View.credentialManager.setVisible(false);
             View.login.setVisible(true);
         }

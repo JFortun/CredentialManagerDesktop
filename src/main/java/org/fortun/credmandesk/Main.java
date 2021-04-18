@@ -7,5 +7,7 @@ public class Main {
         View.signUp.setVisible(false);
         new CredentialManager();
         View.credentialManager.setVisible(false);
+        new ManageUser();
+        View.manageUser.setVisible(false);
     }
 }
