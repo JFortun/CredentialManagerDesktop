@@ -1,8 +1,10 @@
 package org.fortun.credmandesk;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ManageUser extends JFrame {
+public class ManageUser extends JFrame implements ActionListener {
 
     public ManageUser() {
 
@@ -21,6 +23,9 @@ public class ManageUser extends JFrame {
         View.btnManageUserUpdate.setBounds(30, 175, 95, 30);
         View.btnManageUserDelete.setBounds(142, 175, 95, 30);
         View.btnManageUserCancel.setBounds(255, 175, 95, 30);
+        View.btnManageUserUpdate.addActionListener(this);
+        View.btnManageUserDelete.addActionListener(this);
+        View.btnManageUserCancel.addActionListener(this);
         View.manageUser.add(View.lblManageUserNameUser);
         View.manageUser.add(View.lblManageUserPasswordUser);
         View.manageUser.add(View.lblManageUserPasswordUserAgain);
@@ -30,5 +35,16 @@ public class ManageUser extends JFrame {
         View.manageUser.add(View.btnManageUserUpdate);
         View.manageUser.add(View.btnManageUserDelete);
         View.manageUser.add(View.btnManageUserCancel);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource().equals(View.btnManageUserUpdate)) {
+            System.out.println("Update");
+        } else if (actionEvent.getSource().equals(View.btnManageUserDelete)) {
+            System.out.println("Delete");
+        } else if (actionEvent.getSource().equals(View.btnManageUserCancel)) {
+            View.manageUser.setVisible(false);
+        }
     }
 }

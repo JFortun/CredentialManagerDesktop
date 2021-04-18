@@ -13,7 +13,7 @@ public class View {
     static JButton btnLoginSignIn = new JButton("Sign In");
     static JButton btnLoginSignUp = new JButton("Sign Up");
 
-    // Sign In
+    // Sign Up
     static JFrame signUp = new JFrame("Sign Up");
     static JLabel lblSignUpNameUser = new JLabel("User name");
     static JLabel lblSignUpPasswordUser = new JLabel("Password");
@@ -24,12 +24,12 @@ public class View {
     static JButton btnSignUp = new JButton("Sign Up");
     static JButton btnSignUpCancel = new JButton("Cancel");
 
-    // Login
+    // Credential Manager
     static JFrame credentialManager = new JFrame("Credential Manager");
     static JButton btnCredentialManagerManageUser = new JButton("Manage User");
     static JButton btnCredentialManagerSignOut = new JButton("Sign Out");
 
-    // Login
+    // Manage User
     static JFrame manageUser = new JFrame("Manage User");
     static JLabel lblManageUserNameUser = new JLabel("User name");
     static JLabel lblManageUserPasswordUser = new JLabel("Password");
