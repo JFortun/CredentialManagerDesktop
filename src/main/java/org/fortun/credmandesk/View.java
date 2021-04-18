@@ -31,4 +31,13 @@ public class View {
 
     // Login
     static JFrame manageUser = new JFrame("Manage User");
+    static JLabel lblManageUserNameUser = new JLabel("User name");
+    static JLabel lblManageUserPasswordUser = new JLabel("Password");
+    static JLabel lblManageUserPasswordUserAgain = new JLabel("Repeat password");
+    static JTextField txtManageUserNameUser = new JTextField();
+    static JPasswordField txtManageUserPasswordUser = new JPasswordField();
+    static JPasswordField txtManageUserPasswordUserAgain = new JPasswordField();
+    static JButton btnManageUserUpdate = new JButton("Update");
+    static JButton btnManageUserDelete = new JButton("Delete");
+    static JButton btnManageUserCancel = new JButton("Cancel");
 }
