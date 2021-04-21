@@ -3,6 +3,7 @@ package org.fortun.credmandesk;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class SignUp extends JFrame implements ActionListener {
 
@@ -37,7 +38,18 @@ public class SignUp extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnSignUp)) {
-            System.out.println("Sign Up");
+            if ((View.txtSignUpNameUser.getText().trim().length() > 0) && Arrays.equals(View.txtSignUpPasswordUser.getPassword(), View.txtSignUpPasswordUserAgain.getPassword())) {
+                String passwordUser = new String(View.txtSignUpPasswordUser.getPassword());
+                HTTPClient.create(View.txtSignUpNameUser.getText(), passwordUser);
+                JOptionPane.showMessageDialog(this, "User signed up", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                View.txtSignUpNameUser.setText("");
+                View.txtSignUpPasswordUser.setText("");
+                View.txtSignUpPasswordUserAgain.setText("");
+                View.signUp.setVisible(false);
+                View.login.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "You have not entered the name or the passwords do not match", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         } else if (actionEvent.getSource().equals(View.btnSignUpCancel)) {
             View.signUp.setVisible(false);
             View.login.setVisible(true);
