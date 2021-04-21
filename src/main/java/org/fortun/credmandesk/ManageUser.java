@@ -3,6 +3,7 @@ package org.fortun.credmandesk;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class ManageUser extends JFrame implements ActionListener {
 
@@ -40,9 +41,20 @@ public class ManageUser extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnManageUserUpdate)) {
-            System.out.println("Update");
+            if ((View.txtManageUserNameUser.getText().trim().length() > 0) && Arrays.equals(View.txtSignUpPasswordUser.getPassword(), View.txtSignUpPasswordUserAgain.getPassword())) {
+                String passwordUser = new String(View.txtManageUserPasswordUser.getPassword());
+                HTTPClient.update(Main.user.getIdUser().intValue(), View.txtManageUserNameUser.getText(), passwordUser);
+                JOptionPane.showMessageDialog(this, "User updated", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                HTTPClient.read("findByName", View.txtManageUserNameUser.getText());
+                View.txtManageUserNameUser.setText("");
+                View.txtManageUserPasswordUser.setText("");
+                View.txtManageUserPasswordUserAgain.setText("");
+                View.manageUser.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "You have not entered the name or the passwords do not match", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         } else if (actionEvent.getSource().equals(View.btnManageUserDelete)) {
-            System.out.println("Delete");
+            JOptionPane.showMessageDialog(this, "User deleted", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
         } else if (actionEvent.getSource().equals(View.btnManageUserCancel)) {
             View.manageUser.setVisible(false);
         }
