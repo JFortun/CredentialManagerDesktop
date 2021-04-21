@@ -21,7 +21,35 @@ public class HTTPClient {
     static String nameUser, passwordUser;
     static int idUser, position;
 
-    public static ArrayList<String> userConsulta(String type, String parameter) {
+    public static void create(String nameUser, String passwordUser) {
+        try {
+            URL url = new URL("http://localhost:8080/api/users");
+            HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
+            myConnection.setRequestMethod("POST");
+            HashMap<String, String> postDataParams = new HashMap<>();
+            postDataParams.put("nameUser", nameUser);
+            postDataParams.put("passwordUser", passwordUser);
+            myConnection.setDoInput(true);
+            myConnection.setDoOutput(true);
+            OutputStream os = myConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
+            writer.write(getDataString(postDataParams));
+            writer.flush();
+            writer.close();
+            os.close();
+            myConnection.getResponseCode();
+            if (myConnection.getResponseCode() == 201) {
+                System.out.println("Created");
+                myConnection.disconnect();
+            } else {
+                System.out.println("Error");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static ArrayList<String> read(String type, String parameter) {
         users = new ArrayList<>();
         try {
             URL url = null;
@@ -62,7 +90,7 @@ public class HTTPClient {
                 responseBodyReader.close();
                 myConnection.disconnect();
             } else {
-                System.out.println("Error al consultar");
+                System.out.println("Error");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -88,23 +116,7 @@ public class HTTPClient {
         return users;
     }
 
-    public static void userBaja(String idUser) {
-        try {
-            URL url = new URL("http://localhost:8080/api/users/id/" + idUser);
-            HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
-            myConnection.setRequestMethod("DELETE");
-            if (myConnection.getResponseCode() == 204) {
-                System.out.println("Registro borrado");
-                myConnection.disconnect();
-            } else {
-                System.out.println("Error en la baja");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    public static void userModificacion(int idUser, String nameUser, String passwordUser) {
+    public static void update(int idUser, String nameUser, String passwordUser) {
         try {
             URL url = new URL("http://localhost:8080/api/users/id/" + idUser);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -129,7 +141,7 @@ public class HTTPClient {
             os.close();
 
             if (connection.getResponseCode() == 201) {
-                System.out.println("Modificado");
+                System.out.println("Updated");
                 connection.disconnect();
             } else {
                 System.out.println("Error");
@@ -139,25 +151,13 @@ public class HTTPClient {
         }
     }
 
-    public static void userAlta(String nameUser, String passwordUser) {
+    public static void delete(String idUser) {
         try {
-            URL url = new URL("http://localhost:8080/api/users");
+            URL url = new URL("http://localhost:8080/api/users/id/" + idUser);
             HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
-            myConnection.setRequestMethod("POST");
-            HashMap<String, String> postDataParams = new HashMap<>();
-            postDataParams.put("nameUser", nameUser);
-            postDataParams.put("passwordUser", passwordUser);
-            myConnection.setDoInput(true);
-            myConnection.setDoOutput(true);
-            OutputStream os = myConnection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
-            writer.write(getDataString(postDataParams));
-            writer.flush();
-            writer.close();
-            os.close();
-            myConnection.getResponseCode();
-            if (myConnection.getResponseCode() == 201) {
-                System.out.println("User created");
+            myConnection.setRequestMethod("DELETE");
+            if (myConnection.getResponseCode() == 204) {
+                System.out.println("Deleted");
                 myConnection.disconnect();
             } else {
                 System.out.println("Error");
