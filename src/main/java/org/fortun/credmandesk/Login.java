@@ -3,6 +3,7 @@ package org.fortun.credmandesk;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -33,8 +34,21 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
-            View.credentialManager.setVisible(true);
-            View.login.setVisible(false);
+            ArrayList<String> users = (ArrayList<String>) HTTPClient.read("findAll", "null").clone();
+            if (users.contains(View.txtLoginNameUser.getText())) {
+                HTTPClient.read("findByName", View.txtLoginNameUser.getText());
+                String passwordUser = new String(View.txtLoginPasswordUser.getPassword());
+                if (passwordUser.equals(Main.user.getPasswordUser())) {
+                    View.txtLoginNameUser.setText("");
+                    View.txtLoginPasswordUser.setText("");
+                    View.credentialManager.setVisible(true);
+                    View.login.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Wrong credentials", "Warning", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Wrong credentials", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
             View.signUp.setVisible(true);
             View.login.setVisible(false);

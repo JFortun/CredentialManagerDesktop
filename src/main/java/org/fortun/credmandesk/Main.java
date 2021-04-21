@@ -1,6 +1,11 @@
 package org.fortun.credmandesk;
 
+import org.fortun.credmandesk.entity.User;
+
 public class Main {
+
+    static User user = new User();
+
     public static void main(String[] args) {
         new Login();
         new SignUp();

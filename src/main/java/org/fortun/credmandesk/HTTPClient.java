@@ -21,6 +21,7 @@ public class HTTPClient {
     static String nameUser, passwordUser;
     static int idUser, position;
 
+
     public static void create(String nameUser, String passwordUser) {
         try {
             URL url = new URL("http://localhost:8080/api/users");
@@ -103,16 +104,17 @@ public class HTTPClient {
                     int longitud = result.length();
                     for (int i = 0; i < longitud; i++) {
                         jsonobject = result.getJSONObject(i);
-                        users.add(jsonobject.getInt("idUser") + jsonobject.getString("nameUser") + jsonobject.getString("passwordUser"));
+                        users.add(jsonobject.getString("nameUser"));
                     }
                 }
             } else {
-                users.add(jsonobject.getInt("idUser") + jsonobject.getString("nameUser") + jsonobject.getString("passwordUser"));
+                Main.user.setIdUser((long) jsonobject.getInt("idUser"));
+                Main.user.setNameUser(jsonobject.getString("nameUser"));
+                Main.user.setPasswordUser(jsonobject.getString("passwordUser"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return users;
     }
 
