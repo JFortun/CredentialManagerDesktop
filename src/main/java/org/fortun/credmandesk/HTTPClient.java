@@ -153,7 +153,7 @@ public class HTTPClient {
         }
     }
 
-    public static void delete(String idUser) {
+    public static void delete(int idUser) {
         try {
             URL url = new URL("http://localhost:8080/api/users/id/" + idUser);
             HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();

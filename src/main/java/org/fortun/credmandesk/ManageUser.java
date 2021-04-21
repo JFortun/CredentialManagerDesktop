@@ -54,7 +54,11 @@ public class ManageUser extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "You have not entered the name or the passwords do not match", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         } else if (actionEvent.getSource().equals(View.btnManageUserDelete)) {
+            HTTPClient.delete(Main.user.getIdUser().intValue());
             JOptionPane.showMessageDialog(this, "User deleted", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+            View.manageUser.setVisible(false);
+            View.credentialManager.setVisible(false);
+            View.login.setVisible(true);
         } else if (actionEvent.getSource().equals(View.btnManageUserCancel)) {
             View.manageUser.setVisible(false);
         }
