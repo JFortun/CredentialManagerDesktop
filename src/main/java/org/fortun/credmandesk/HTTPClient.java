@@ -157,10 +157,10 @@ public class HTTPClient {
             os.close();
             myConnection.getResponseCode();
             if (myConnection.getResponseCode() == 201) {
-                System.out.println("Registro creado");
+                System.out.println("User created");
                 myConnection.disconnect();
             } else {
-                System.out.println("Error en el alta");
+                System.out.println("Error");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
