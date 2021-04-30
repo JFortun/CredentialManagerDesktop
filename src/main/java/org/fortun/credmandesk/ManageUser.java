@@ -1,5 +1,7 @@
 package org.fortun.credmandesk;
 
+import org.fortun.credmandesk.httpClient.HTTPClient;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

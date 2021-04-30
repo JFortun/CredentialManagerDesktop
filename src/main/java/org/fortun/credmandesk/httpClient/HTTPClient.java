@@ -1,5 +1,6 @@
-package org.fortun.credmandesk;
+package org.fortun.credmandesk.httpClient;
 
+import org.fortun.credmandesk.Main;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

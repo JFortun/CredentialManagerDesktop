@@ -4,7 +4,7 @@ import org.fortun.credmandesk.entity.User;
 
 public class Main {
 
-    static User user = new User();
+    public static User user = new User();
 
     public static void main(String[] args) {
         new Login();

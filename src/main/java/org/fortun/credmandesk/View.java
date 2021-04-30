@@ -28,6 +28,12 @@ public class View {
     static JFrame credentialManager = new JFrame("Credential Manager");
     static JButton btnCredentialManagerManageUser = new JButton("Manage User");
     static JButton btnCredentialManagerSignOut = new JButton("Sign Out");
+    static JButton btnCredentialManagerCreate = new JButton("Create");
+    static JButton btnCredentialManagerUpdate = new JButton("Update");
+    static JButton btnCredentialManagerDelete = new JButton("Delete");
+    static DefaultListModel<String> listModelCredentials = new DefaultListModel<>();
+    static JList<String> listCredentials = new JList(listModelCredentials);
+    static JScrollPane scrollPaneCredentials = new JScrollPane(listCredentials);
 
     // Manage User
     static JFrame manageUser = new JFrame("Manage User");
