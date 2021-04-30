@@ -23,6 +23,9 @@ public class CredentialManager extends JFrame implements ActionListener {
         View.scrollPaneCredentials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         View.btnCredentialManagerManageUser.addActionListener(this);
         View.btnCredentialManagerSignOut.addActionListener(this);
+        View.btnCredentialManagerCreate.addActionListener(this);
+        View.btnCredentialManagerUpdate.addActionListener(this);
+        View.btnCredentialManagerDelete.addActionListener(this);
         View.credentialManager.add(View.btnCredentialManagerManageUser);
         View.credentialManager.add(View.btnCredentialManagerSignOut);
         View.credentialManager.add(View.btnCredentialManagerCreate);
@@ -48,6 +51,12 @@ public class CredentialManager extends JFrame implements ActionListener {
         } else if (actionEvent.getSource().equals(View.btnCredentialManagerSignOut)) {
             View.credentialManager.setVisible(false);
             View.login.setVisible(true);
+        } else if (actionEvent.getSource().equals(View.btnCredentialManagerCreate)) {
+            System.out.println("Create");
+        } else if (actionEvent.getSource().equals(View.btnCredentialManagerUpdate)) {
+            System.out.println("Update");
+        } else if (actionEvent.getSource().equals(View.btnCredentialManagerDelete)) {
+            System.out.println("Delete");
         }
     }
 }
