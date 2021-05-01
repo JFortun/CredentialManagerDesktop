@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HTTPClient {
+public class HTTPClientUsers {
 
     static ArrayList<String> users;
-    static JSONArray result;
-    static JSONObject jsonobject;
+    static JSONArray jsonArray;
+    static JSONObject jsonObject;
     static String nameUser, passwordUser;
     static int idUser, position;
 
@@ -26,23 +26,23 @@ public class HTTPClient {
     public static void create(String nameUser, String passwordUser) {
         try {
             URL url = new URL("http://localhost:8080/api/users");
-            HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
-            myConnection.setRequestMethod("POST");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
             HashMap<String, String> postDataParams = new HashMap<>();
             postDataParams.put("nameUser", nameUser);
             postDataParams.put("passwordUser", passwordUser);
-            myConnection.setDoInput(true);
-            myConnection.setDoOutput(true);
-            OutputStream os = myConnection.getOutputStream();
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
             writer.write(getDataString(postDataParams));
             writer.flush();
             writer.close();
             os.close();
-            myConnection.getResponseCode();
-            if (myConnection.getResponseCode() == 201) {
+            connection.getResponseCode();
+            if (connection.getResponseCode() == 201) {
                 System.out.println("Created");
-                myConnection.disconnect();
+                connection.disconnect();
             } else {
                 System.out.println("Error");
             }
@@ -67,10 +67,10 @@ public class HTTPClient {
                     break;
             }
             assert url != null;
-            HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
-            myConnection.setRequestMethod("GET");
-            if (myConnection.getResponseCode() == 200) {
-                InputStream responseBody = myConnection.getInputStream();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            if (connection.getResponseCode() == 200) {
+                InputStream responseBody = connection.getInputStream();
                 InputStreamReader responseBodyReader = new InputStreamReader(responseBody, StandardCharsets.UTF_8);
                 BufferedReader bR = new BufferedReader(responseBodyReader);
                 String line;
@@ -79,18 +79,18 @@ public class HTTPClient {
                     responseStrBuilder.append(line);
                 }
                 if (type.equals("findAll")) {
-                    result = new JSONArray(responseStrBuilder.toString());
+                    jsonArray = new JSONArray(responseStrBuilder.toString());
                     position = 0;
-                    jsonobject = result.getJSONObject(position);
+                    jsonObject = jsonArray.getJSONObject(position);
                 } else {
-                    jsonobject = new JSONObject(responseStrBuilder.toString());
+                    jsonObject = new JSONObject(responseStrBuilder.toString());
                 }
-                idUser = jsonobject.getInt("idUser");
-                nameUser = jsonobject.getString("nameUser");
-                passwordUser = jsonobject.getString("passwordUser");
+                idUser = jsonObject.getInt("idUser");
+                nameUser = jsonObject.getString("nameUser");
+                passwordUser = jsonObject.getString("passwordUser");
                 responseBody.close();
                 responseBodyReader.close();
-                myConnection.disconnect();
+                connection.disconnect();
             } else {
                 System.out.println("Error");
             }
@@ -101,17 +101,16 @@ public class HTTPClient {
         try {
             users.clear();
             if (type.equals("findAll")) {
-                if (result != null) {
-                    int longitud = result.length();
-                    for (int i = 0; i < longitud; i++) {
-                        jsonobject = result.getJSONObject(i);
-                        users.add(jsonobject.getString("nameUser"));
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jsonObject = jsonArray.getJSONObject(i);
+                        users.add(jsonObject.getString("nameUser"));
                     }
                 }
             } else {
-                Main.user.setIdUser((long) jsonobject.getInt("idUser"));
-                Main.user.setNameUser(jsonobject.getString("nameUser"));
-                Main.user.setPasswordUser(jsonobject.getString("passwordUser"));
+                Main.user.setIdUser((long) jsonObject.getInt("idUser"));
+                Main.user.setNameUser(jsonObject.getString("nameUser"));
+                Main.user.setPasswordUser(jsonObject.getString("passwordUser"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -157,11 +156,11 @@ public class HTTPClient {
     public static void delete(int idUser) {
         try {
             URL url = new URL("http://localhost:8080/api/users/id/" + idUser);
-            HttpURLConnection myConnection = (HttpURLConnection) url.openConnection();
-            myConnection.setRequestMethod("DELETE");
-            if (myConnection.getResponseCode() == 204) {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            if (connection.getResponseCode() == 204) {
                 System.out.println("Deleted");
-                myConnection.disconnect();
+                connection.disconnect();
             } else {
                 System.out.println("Error");
             }

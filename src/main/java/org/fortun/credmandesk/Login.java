@@ -1,6 +1,7 @@
 package org.fortun.credmandesk;
 
-import org.fortun.credmandesk.httpClient.HTTPClient;
+import org.fortun.credmandesk.httpClient.HTTPClientCredentials;
+import org.fortun.credmandesk.httpClient.HTTPClientUsers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,9 +37,9 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource().equals(View.btnLoginSignIn)) {
-            ArrayList<String> users = (ArrayList<String>) HTTPClient.read("findAll", "null").clone();
+            ArrayList<String> users = (ArrayList<String>) HTTPClientUsers.read("findAll", "null").clone();
             if (users.contains(View.txtLoginNameUser.getText())) {
-                HTTPClient.read("findByName", View.txtLoginNameUser.getText());
+                HTTPClientUsers.read("findByName", View.txtLoginNameUser.getText());
                 String passwordUser = new String(View.txtLoginPasswordUser.getPassword());
                 if (passwordUser.equals(Main.user.getPasswordUser())) {
                     View.txtLoginNameUser.setText("");
@@ -50,6 +51,13 @@ public class Login extends JFrame implements ActionListener {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Wrong credentials", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+
+            View.listModelCredentials.removeAllElements();
+            ArrayList<String> credentialsList = (ArrayList<String>) HTTPClientCredentials.read("findByUser", String.valueOf(Main.user.getIdUser())).clone();
+            String[] credentials = credentialsList.toArray(new String[0]);
+            for (String credential : credentials) {
+                View.listModelCredentials.addElement(credential);
             }
         } else if (actionEvent.getSource().equals(View.btnLoginSignUp)) {
             View.signUp.setVisible(true);

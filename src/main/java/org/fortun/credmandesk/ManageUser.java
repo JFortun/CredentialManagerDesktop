@@ -1,6 +1,6 @@
 package org.fortun.credmandesk;
 
-import org.fortun.credmandesk.httpClient.HTTPClient;
+import org.fortun.credmandesk.httpClient.HTTPClientUsers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,9 +45,9 @@ public class ManageUser extends JFrame implements ActionListener {
         if (actionEvent.getSource().equals(View.btnManageUserUpdate)) {
             if ((View.txtManageUserNameUser.getText().trim().length() > 0) && Arrays.equals(View.txtSignUpPasswordUser.getPassword(), View.txtSignUpPasswordUserAgain.getPassword())) {
                 String passwordUser = new String(View.txtManageUserPasswordUser.getPassword());
-                HTTPClient.update(Main.user.getIdUser().intValue(), View.txtManageUserNameUser.getText(), passwordUser);
+                HTTPClientUsers.update(Main.user.getIdUser().intValue(), View.txtManageUserNameUser.getText(), passwordUser);
                 JOptionPane.showMessageDialog(this, "User updated", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-                HTTPClient.read("findByName", View.txtManageUserNameUser.getText());
+                HTTPClientUsers.read("findByName", View.txtManageUserNameUser.getText());
                 View.txtManageUserNameUser.setText("");
                 View.txtManageUserPasswordUser.setText("");
                 View.txtManageUserPasswordUserAgain.setText("");
@@ -56,7 +56,7 @@ public class ManageUser extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "You have not entered the name or the passwords do not match", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         } else if (actionEvent.getSource().equals(View.btnManageUserDelete)) {
-            HTTPClient.delete(Main.user.getIdUser().intValue());
+            HTTPClientUsers.delete(Main.user.getIdUser().intValue());
             JOptionPane.showMessageDialog(this, "User deleted", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
             View.manageUser.setVisible(false);
             View.credentialManager.setVisible(false);

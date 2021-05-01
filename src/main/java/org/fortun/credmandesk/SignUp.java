@@ -1,6 +1,6 @@
 package org.fortun.credmandesk;
 
-import org.fortun.credmandesk.httpClient.HTTPClient;
+import org.fortun.credmandesk.httpClient.HTTPClientUsers;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,7 +42,7 @@ public class SignUp extends JFrame implements ActionListener {
         if (actionEvent.getSource().equals(View.btnSignUp)) {
             if ((View.txtSignUpNameUser.getText().trim().length() > 0) && Arrays.equals(View.txtSignUpPasswordUser.getPassword(), View.txtSignUpPasswordUserAgain.getPassword())) {
                 String passwordUser = new String(View.txtSignUpPasswordUser.getPassword());
-                HTTPClient.create(View.txtSignUpNameUser.getText(), passwordUser);
+                HTTPClientUsers.create(View.txtSignUpNameUser.getText(), passwordUser);
                 JOptionPane.showMessageDialog(this, "User signed up", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
                 View.txtSignUpNameUser.setText("");
                 View.txtSignUpPasswordUser.setText("");

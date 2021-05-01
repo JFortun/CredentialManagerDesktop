@@ -1,44 +1,39 @@
 package org.fortun.credmandesk;
 
+import org.fortun.credmandesk.httpClient.HTTPClientCredentials;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class CredentialManager extends JFrame implements ActionListener {
 
     public CredentialManager() {
 
-        View.credentialManager.setSize(1200, 800);
+        View.credentialManager.setSize(900, 600);
         View.credentialManager.setResizable(false);
         View.credentialManager.setLayout(null);
         View.credentialManager.setLocationRelativeTo(null);
         View.credentialManager.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         View.credentialManager.setVisible(true);
-        View.btnCredentialManagerManageUser.setBounds(550, 50, 120, 30);
-        View.btnCredentialManagerSignOut.setBounds(50, 50, 95, 30);
-        View.btnCredentialManagerCreate.setBounds(925, 300, 200, 50);
-        View.btnCredentialManagerUpdate.setBounds(925, 400, 200, 50);
-        View.btnCredentialManagerDelete.setBounds(925, 500, 200, 50);
-        View.scrollPaneCredentials.setBounds(100, 200, 750, 500);
+        View.lblCredentialManagerListHeader.setBounds(50, 100, 400, 30);
+        View.btnCredentialManagerManageUser.setBounds(530, 25, 120, 30);
+        View.btnCredentialManagerSignOut.setBounds(50, 25, 95, 30);
+        View.btnCredentialManagerCreate.setBounds(665, 200, 200, 50);
+        View.btnCredentialManagerManageCredential.setBounds(665, 300, 200, 50);
+        View.scrollPaneCredentials.setBounds(50, 125, 600, 400);
         View.scrollPaneCredentials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         View.btnCredentialManagerManageUser.addActionListener(this);
         View.btnCredentialManagerSignOut.addActionListener(this);
         View.btnCredentialManagerCreate.addActionListener(this);
-        View.btnCredentialManagerUpdate.addActionListener(this);
-        View.btnCredentialManagerDelete.addActionListener(this);
+        View.btnCredentialManagerManageCredential.addActionListener(this);
+        View.credentialManager.add(View.lblCredentialManagerListHeader);
         View.credentialManager.add(View.btnCredentialManagerManageUser);
         View.credentialManager.add(View.btnCredentialManagerSignOut);
         View.credentialManager.add(View.btnCredentialManagerCreate);
-        View.credentialManager.add(View.btnCredentialManagerUpdate);
-        View.credentialManager.add(View.btnCredentialManagerDelete);
+        View.credentialManager.add(View.btnCredentialManagerManageCredential);
         View.credentialManager.add(View.scrollPaneCredentials);
-
-        String[] credentials = {"ID: 1234     |     Name: Mail     |     user: luis@mail.com     |     Password: luis123",
-                "ID: 5678     |     Name: Twitter     |     user: pepe     |     Password: pepetwitter123",
-                "ID: 9123     |     Name: Google     |     user: alberto@gmail.com     |     Password: alberto123"};
-        for (String credential : credentials) {
-            View.listModelCredentials.addElement(credential);
-        }
     }
 
     @Override
@@ -52,11 +47,41 @@ public class CredentialManager extends JFrame implements ActionListener {
             View.credentialManager.setVisible(false);
             View.login.setVisible(true);
         } else if (actionEvent.getSource().equals(View.btnCredentialManagerCreate)) {
-            System.out.println("Create");
-        } else if (actionEvent.getSource().equals(View.btnCredentialManagerUpdate)) {
-            System.out.println("Update");
-        } else if (actionEvent.getSource().equals(View.btnCredentialManagerDelete)) {
-            System.out.println("Delete");
+            JTextField nameCredential = new JTextField();
+            JTextField userCredential = new JTextField();
+            JTextField passwordCredential = new JTextField();
+            Object[] message = {
+                    "nameCredential:", nameCredential,
+                    "userCredential:", userCredential,
+                    "passwordCredential:", passwordCredential
+            };
+
+            int option = JOptionPane.showConfirmDialog(null, message, "New credential", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                HTTPClientCredentials.create(nameCredential.getText(), userCredential.getText(), passwordCredential.getText(), String.valueOf(Main.user.getIdUser()));
+                JOptionPane.showMessageDialog(this, "Credential created", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            View.listModelCredentials.removeAllElements();
+            ArrayList<String> credentialsList = (ArrayList<String>) HTTPClientCredentials.read("findByUser", String.valueOf(Main.user.getIdUser())).clone();
+            String[] credentials = credentialsList.toArray(new String[0]);
+            for (String credential : credentials) {
+                View.listModelCredentials.addElement(credential);
+            }
+        } else if (actionEvent.getSource().equals(View.btnCredentialManagerManageCredential)) {
+            if (!View.listCredentials.isSelectionEmpty()) {
+                String selected = View.listCredentials.getSelectedValue();
+                String[] selectedSplit = selected.split("          -          ");
+                Main.credential.setIdCredential(Long.valueOf(selectedSplit[0]));
+                View.txtManageCredentialNameCredential.setText(selectedSplit[1]);
+                View.txtManageCredentialUserCredential.setText(selectedSplit[2]);
+                View.txtManageCredentialPasswordCredential.setText(selectedSplit[3]);
+                View.manageCredential.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "You have select a credential", "Warning", JOptionPane.WARNING_MESSAGE);
+
+            }
+
         }
     }
 }
