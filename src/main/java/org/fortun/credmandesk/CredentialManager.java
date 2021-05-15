@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class CredentialManager extends JFrame implements ActionListener {
 
@@ -34,6 +37,20 @@ public class CredentialManager extends JFrame implements ActionListener {
         View.credentialManager.add(View.btnCredentialManagerCreate);
         View.credentialManager.add(View.btnCredentialManagerManageCredential);
         View.credentialManager.add(View.scrollPaneCredentials);
+
+        Runnable runnable = new Runnable() {
+            public void run() {
+                View.listModelCredentials.removeAllElements();
+                ArrayList<String> credentialsList = (ArrayList<String>) HTTPClientCredentials.read("findByUser", String.valueOf(Main.user.getIdUser())).clone();
+                String[] credentials = credentialsList.toArray(new String[0]);
+                for (String credential : credentials) {
+                    View.listModelCredentials.addElement(credential);
+                }
+            }
+        };
+
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        exec.scheduleAtFixedRate(runnable , 0, 5, TimeUnit.SECONDS);
     }
 
     @Override
