@@ -41,7 +41,7 @@ public class Login extends JFrame implements ActionListener {
             if (users.contains(View.txtLoginNameUser.getText())) {
                 HTTPClientUsers.read("findByName", View.txtLoginNameUser.getText());
                 String passwordUser = new String(View.txtLoginPasswordUser.getPassword());
-                if (passwordUser.equals(Main.user.getPasswordUser())) {
+                if (HTTPClientUsers.encrypt(passwordUser).equals(Main.user.getPasswordUser())) {
                     View.txtLoginNameUser.setText("");
                     View.txtLoginPasswordUser.setText("");
                     View.credentialManager.setVisible(true);
