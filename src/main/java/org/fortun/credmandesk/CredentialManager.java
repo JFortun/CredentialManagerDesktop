@@ -95,7 +95,7 @@ public class CredentialManager extends JFrame implements ActionListener {
                 View.txtManageCredentialPasswordCredential.setText(selectedSplit[3]);
                 View.manageCredential.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "You have select a credential", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You have to select a credential", "Warning", JOptionPane.WARNING_MESSAGE);
 
             }
 
